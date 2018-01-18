@@ -244,3 +244,356 @@
   244  history
   245  ls -l
   246  history > history.txt
+    1  apt-get update
+    2  apt-get install apt-transport-https ca-certificates curl software-properties-common
+    3  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+    4  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    5  apt-get update
+    6  apt-cache show docker-ee
+    7  apt-cache show docker-ce
+    8  apt-get install docker-ce=17.12.*
+    9  docker version
+   10  docker run hello-world
+   11  clear
+   12  $ docker container run --rm -it --name ucp   -v /var/run/docker.sock:/var/run/docker.sock   docker/ucp:2.2.5 install   --host-address <node-ip-address>   --interactive
+   13  ifconfig 
+   14  docker container run --rm -it --name ucp   -v /var/run/docker.sock:/var/run/docker.sock   docker/ucp:2.2.5 install   --host-address 172.16.4.11   --interactive
+   15  f sudo docker run -it --rm docker/dtr install   --ucp-node ubuntu-1   --ucp-username cfischer   --ucp-url https://172.16.4.4:444 --ucp-insecure-tls --dtr-external-url https://carl-ubuntu-1.westus2.cloudapp.azure.com
+   16  f sudo docker run -it --rm docker/dtr install   --ucp-node ubuntu-1   --ucp-username cfischer   --ucp-url https://172.16.4.4:4443 --ucp-insecure-tls --dtr-external-url https://52.151.10.146
+   17  ifconfig
+   18  sudo docker run -it --rm docker/dtr install   --ucp-node ubuntu-2   --ucp-username cfischer   --ucp-url https://172.16.4.11:4443 --ucp-insecure-tls --dtr-external-url https://52.151.10.146
+   19  docker login 52.151.10.146
+   20  clear
+   21  docker ps
+   22  clear
+   23  docker ps
+   24  docker ps | grep dtr
+   25  clear
+   26  docker ps | grep dtr
+   27  sudo docker run -it --rm docker/dtr install   --ucp-node ubuntu-2   --ucp-username cfischer   --ucp-url https://52.151.10.146:4443 --ucp-insecure-tls --dtr-external-url https://52.151.10.146
+   28  docker pull hello-world
+   29  docker login 52.151.10.146
+   30  clear
+   31  docker image ls
+   32  docker tag hello-world:latest 52.151.10.146/library/hello-world:mytag
+   33  docker image ls
+   34  docker push 52.151.10.146/library/hello-world
+   35  docker image ls
+   36  docker rmi f2a
+   37  docker rm f2a
+   38  clear
+   39  docker image ls
+   40  docker untag f2a
+   41  clear
+   42  docker image ls
+   43  docker image rm f2a
+   44  docker image rm 52.151.10.146/library/hello-world
+   45  docker image rm 52.151.10.146/library/hello-world:mytag
+   46  docker image ls
+   47  clear
+   48  ls -l
+   49  mkdir sample
+   50  vi Dockerfile
+   51  ls -l
+   52  cp Dockerfile sample
+   53  rm Dockerfile 
+   54  cd sample
+   55  ls
+   56  clear
+   57  ls -l
+   58  vi requirements.txt
+   59  vi app.py
+   60  ls -l
+   61  docker build -t friendlyhello .
+   62  docker image ls
+   63  docker build --help
+   64  clear
+   65  docker run -p 4000:80 friendlyhello
+   66  docker image ls
+   67  docker tag friendlyhello library/friendlyhello:v1
+   68  docker push library/friendlyhello:v1
+   69  docker login
+   70  docker login 52.151.10.146
+   71  docker push library/friendlyhello:v1
+   72  docker login 52.151.10.146
+   73  docker push library/friendlyhello:v1
+   74  docker image ls
+   75  docker image rm friendlyhello:v1
+   76  docker tag friendlyhello:latest 52.151.10.146/library/friendlyhello:v1
+   77  docker image ls | grep frie
+   78  docker push 52.151.10.146/library/friendlyhello:v1
+   79  docker image ls
+   80  cd ..
+   81  ls -l
+   82  vi docker-compose.yml
+   83  docker swarm
+   84  docker node ls
+   85  clear
+   86  docker stack deploy -c docker-compose.yml friendlyservice
+   87  docker service ls
+   88  docker service ps friendlyservice
+   89  docker service ps friendlyservice_web
+   90  docker service ls
+   91  docker stack rm friendlyhello
+   92  history
+   93  docker stack rm friendlyservice
+   94  docker stack ls
+   95  docker service ls
+   96  docker image ls
+   97  vi docker-compose.yml 
+   98  docker stack deploy -c docker-compose.yml friendlyservice
+   99  docker service ls
+  100  docker stack rm friendlyservice
+  101  vi docker-compose.yml 
+  102  docker stack deploy -c docker-compose.yml friendlyservice
+  103  docker stack ls
+  104  docker service ls
+  105  docker service inspect l09
+  106  docker service inspect lo9
+  107  docker service ls
+  108  docker stack ls
+  109  docker stack rm friendlyservice
+  110  docker service ls
+  111  clear
+  112  ls -l
+  113  vi docker-compose.yml 
+  114  docker stack deploy -c docker-compose.yml friendlyservice
+  115  vi docker-compose.yml 
+  116  docker stack deploy -c docker-compose.yml friendlyservice
+  117  docker service ls
+  118  cat docker-compose.yml 
+  119  clear
+  120  docker service ls
+  121  docker stack ps friendlyservice
+  122  dockersdfsdf
+  123  clear
+  124  docker stack ps friendlyservice
+  125  docker stack rm friendlyservice
+  126  ls
+  127  vi docker-compose.yml 
+  128  ls
+  129  pwd
+  130  mkdir data
+  131  ls /data
+  132  ls /root/dat
+  133  ls /root/data
+  134  vi docker-compose.yml 
+  135  docker stack ps friendlyservice
+  136  docker stack deploy -c docker-compose.yml friendlyservice
+  137  docker service ls
+  138  ls
+  139  cat docker-compose.yml 
+  140  ls -l
+  141  mkdir winsample
+  142  cd winsample/
+  143  copy ../docker-compose.yml 
+  144  cp ../docker-compose.yml 
+  145  cp ../docker-compose.yml .
+  146  ls -l
+  147  clear
+  148  vi docker-compose.yml 
+  149  ls -l
+  150  mkdir web
+  151  cd web
+  152  cd ..
+  153  dir
+  154  ls -l
+  155  cd sample/
+  156  dir
+  157  cat Dockerfile 
+  158  cd ..
+  159  ls
+  160  cd winsample/
+  161  ls -l
+  162  cd web/
+  163  ls -l
+  164  cd ..
+  165  ls -l
+  166  cat docker-compose.yml 
+  167  cd ..
+  168  dir
+  169  ls -l
+  170  ls sample/
+  171  ls winsample/
+  172  copy docker-compose.yml sample
+  173  cp docker-compose.yml sample
+  174  rm docker-compose.yml 
+  175  ls -l
+  176  cd sample/
+  177  ls -l
+  178  mkdir source
+  179  cp app.py source/
+  180  cp Dockerfile source/
+  181  cp requirements.txt source/
+  182  rm requirements.txt 
+  183  rm Dockerfile 
+  184  rm app.py 
+  185  ls -l
+  186  ls source/
+  187  cat docker-compose.yml 
+  188  ls -l
+  189  cd sample
+  190  ls -l
+  191  less docker-compose.yml 
+  192  ls -l
+  193  cd ..
+  194  ls -l
+  195  ls data
+  196  ls data -l
+  197  ls sample -l
+  198  ls sample/source/ -l
+  199  ls winsample/ -l
+  200  ls winsample/web/ -l
+  201  cd winsample/
+  202  less docker-compose.yml 
+  203  cd ..
+  204  ls -l
+  205  rm data/appendonly.aof 
+  206  git
+  207  clear
+  208  ls -l
+  209  git clone https://github.com/carlfischer1/winimagecompat.git
+  210  ls -l
+  211  ls winimagecompat/ -l
+  212  mv data winimagecompat
+  213  mv sample winimagecompat
+  214  mv winsample winimagecompat/
+  215  ls -l
+  216  cd winimagecompat/
+  217  ls -l
+  218  git push
+  219  nv}cu86dR@LRw4v=mpz3
+  220  git push
+  221  clear
+  222  ls -l
+  223  cd ..
+  224  git push winimagecompat
+  225  cd winimagecompat/
+  226  ls -l
+  227  git push
+  228  git --help
+  229  ls -l
+  230  git add data
+  231  git add sample
+  232  git add winsample
+  233  git status
+  234  git commit
+  235  git config --global --edit
+  236  git commit --amend --reset-author
+  237  ls -l
+  238  vi README.md 
+  239  git status
+  240  clear
+  241  ls -l
+  242  history | grep git
+  243  vi README.md 
+  244  history
+  245  ls -l
+  246  history > history.txt
+  247  git add history.txt 
+  248  git commit
+  249  get config --global user.name "carlfischer1"
+  250  git config --global user.name "carlfischer1"
+  251  git config --global user.email "carl.fischer@docker.com"
+  252  git commit --amend --reset-author
+  253  clear
+  254  docker node --help
+  255  docker node update --help
+  256  ls -l
+  257  vi README.md 
+  258  git commit
+  259  git push
+  260  history
+  261  git status
+  262  git commit -a
+  263  git --help
+  264  git push --help
+  265  git push https://github.com/carlfischer1/winimagecompat.git
+  266  ls -l
+  267  git status
+  268  git push
+  269  clear
+  270  git push
+  271  ls -l
+  272  vi README.md 
+  273  git commit
+  274  git push
+  275  git status
+  276  git commit -a
+  277  git status
+  278  git push
+  279  docker node update --label-add OsVersion="$((Get-ComputerInfo).OsVersion)" $ENV:COMPUTERNAME
+  280  docker node ls
+  281  docker node update --label-add OsVersion="$((Get-ComputerInfo).OsVersion)" 2016-1
+  282  docker node --help
+  283  docker node inspect 2016-1
+  284  docker node inspect 2016-1 | less
+  285  docker node update --label-add OsVersion=`"$((Get-ComputerInfo).OsVersion)"` 2016-1
+  286  docker node update --label-add OsVersion="bar" 2016-1
+  287  docker node inspect 2016-1 | less
+  288  docker node update --label-add OsVersion='"$((Get-ComputerInfo).OsVersion)"' 2016-1
+  289  docker node inspect 2016-1 | less
+  290  ls -l
+  291  cd winimagecompat/
+  292  ls -l
+  293  cd winsample/
+  294  ls -l
+  295  less docker-compose.yml 
+  296  ls -l
+  297  clear
+  298  less ../sample/source/Dockerfile 
+  299  less docker-compose.yml 
+  300  less ../sample/docker-compose.yml 
+  301  less docker-compose.yml 
+  302  ls -l
+  303  less ../sample/docker-compose.yml 
+  304  less ../sample/source/Dockerfile 
+  305  copy ../sample/source/Dockerfile ./web/.
+  306  cp ../sample/source/Dockerfile ./web/.
+  307  ls -l
+  308  cd web/
+  309  ls -l
+  310  vi Dockerfile 
+  311  cd ..
+  312  less docker-compose.yml 
+  313  vi web/Dockerfile 
+  314  less docker-compose.yml 
+  315  vi docker-compose.yml 
+  316  ls -l
+  317  mkdir custompython
+  318  cd custompython/
+  319  vi Dockerfile
+  320  ls -l
+  321  docker build -t custompython:v1 .
+  322  clear
+  323  ls -l
+  324  git add Dockerfile 
+  325  cd ..
+  326  cd .
+  327  cd ..
+  328  git status
+  329  git add winsample/web
+  330  git status
+  331  git add winsample/docker-compose.yml
+  332  git status
+  333  cd winsample/web
+  334  ls -l
+  335  less Dockerfile 
+  336  vi Dockerfile 
+  337  less Dockerfile 
+  338  copy ../../sample/source/app.py .
+  339  cp ../../sample/source/app.py .
+  340  cp ../../sample/source/requirements.txt .
+  341  clear
+  342  ls -l
+  343  git push
+  344  git status
+  345  git add app.py
+  346  git add requirements.txt
+  347  git status
+  348  git commit
+  349  git push
+  350  cd ..
+  351  l s-l
+  352  ls -l
+  353  history >> history.txt
