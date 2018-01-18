@@ -1,0 +1,37 @@
+version: "3"
+x-windows:
+  version: 10.0.14393.1770
+  
+services:
+  web:
+    # replace username/repo:tag with your name and image details
+    # image: 52.151.10.146/library/friendlyhello:v1
+    build:
+      context: .
+      args:
+        version: *version
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    constraints:
+       - node.role == worker
+       - engine.labels.operatingsystem == *version
+    ports:
+      - "4000:80"
+    networks:
+      - webnet
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /root/data:/data
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    command: redis-server --appendonly yes
+    networks:
+      - webnet
+networks:
+  webnet:
