@@ -1,7 +1,11 @@
-$config = Get-Content .\test.json -raw | ConvertFrom-Json
-$config.gettype()
-$config | add-member -Name ooh -value ("Foo=Bar") -MemberType NoteProperty
-$config | add-member -Name Labels -value ("com.microsoft.windows=myver") -MemberType NoteProperty
-$config | add-member -Name Labels -value ("{label=com.microsoft.windows=myver}") -MemberType NoteProperty
-$config | add-member -Name Labels2 -value ("{label=com.microsoft.windows=myver}") -MemberType NoteProperty
-$config | ConvertTo-Json > isthisit.txt
+# nodelabel.ps1
+# adds an engine label for the version of Windows in use
+
+$configfile = "c:\programdata\docker\config\daemon.json"
+$labelroot = "docker.engine.winver"
+$winver = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" | % {"{0}.{1}.{2}.{3}" -f $_.CurrentMajorVersionNumber,$_.CurrentMinorVersionNumber,$_.CurrentBuildNumber,$_.UBR}
+$label = @($labelroot + "=" + $winver)                                                                        
+
+$data = Get-Content $configfile | ConvertFrom-Json                                                              
+$data | add-member -type NoteProperty -Name "labels" -Value $label                                              
+$data | ConvertTo-Json > $configfile
