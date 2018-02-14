@@ -8,4 +8,4 @@ $label = @($labelroot + "=" + $winver)
 
 $data = Get-Content $configfile | ConvertFrom-Json                                                              
 $data | add-member -type NoteProperty -Name "labels" -Value $label                                              
-$data | ConvertTo-Json > $configfile
+$data | ConvertTo-Json | Out-File $configfile -Encoding ASCII
