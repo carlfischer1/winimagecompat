@@ -1,25 +1,29 @@
 # Windows image compatibility
 Testing, samples, and scripts for Windows image compatibility runbook
 
-## git
-```
-git clone https://github.com/carlfischer1/winimagecompat.git
-```
-```
-git config --global user.name "Your Name"
-```
-```
-git config --global user.email you@example.com
-```
-
 ## Reducing the overhead of maintaining custom labels on each node
-The Windows Server run book is based on labels that contain the Windows version running on each node, and service constraints referencing those labels to bind a service built on a given Windows version to hosts running the matching version.
+The Windows Server run book is predicated on the use of labels that contain the Windows version running on each node, and service constraints that reference those labels to bind a service using images built on a given Windows version to hosts running the same Windows version.
 
-For security reasons the ```docker node update``` command can only be run on Swarm masters, so it can't be used to set node labels based on worker settings.
+Note: For security reasons the ```docker node update``` command can only be run on Swarm masters, so it can't be used to set node labels based on worker settings that must be determined remotely.
 
 Here are two alternate methods to automate setting labels for worker nodes containing their Windows version:
 
-### Powershell script to set engine label in daemon config
+### Powershell script to add engine label
+Engine labels <link> are created through entries in the Docker daemon configuration file. ```nodelabel.ps1``` creates an engine label named ```engine.labels.windowsversion``` with a value of the Windows version in the form of ```major.minor.build.revision```.
+
+The script must be run on the Windows node, and so could be added as a step in the node provisioning process prior to joining the UCP cluster.
+
+### UCP API to set node labels
+Another option is to use the UCP API to set node labels. 
+https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeList
+https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeUpdate
+
+
+### Also investigated
+
+### Going forward, Kubernetes labels
+
+#### Using Linux Powershell to remotely gather Windows version 
 On Ubuntu 16.10 UCP master:
 
 1 - Install Powershell for Linux
@@ -45,11 +49,14 @@ References
 * https://github.com/Microsoft/omi
 * https://github.com/PowerShell/psl-omi-provider
 
-### Powershell remoting to set node labels
-
-
-
-### UCP API to set node labels
-Another option is to use the UCP API to set node labels. 
-https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeList
-https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeUpdate
+# Reference
+## git
+```
+git clone https://github.com/carlfischer1/winimagecompat.git
+```
+```
+git config --global user.name "Your Name"
+```
+```
+git config --global user.email you@example.com
+```
