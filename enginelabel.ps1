@@ -7,7 +7,8 @@
 #   3 - daemon.json file with other label values
 #   4 - daemon.json file containing the label to be added (no change)
 
-$configfile = "c:\programdata\docker\config\daemon.json"
+$configroot = $Env:PROGRAMDATA
+$configfile = $configroot + "\docker\config\daemon.json"
 $labelroot = "engine.labels.windowsversion"
 $winver = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" | % {"{0}.{1}.{2}.{3}" -f $_.CurrentMajorVersionNumber,$_.CurrentMinorVersionNumber,$_.CurrentBuildNumber,$_.UBR}
 $label = @($labelroot + "=" + $winver) 
