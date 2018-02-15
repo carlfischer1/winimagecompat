@@ -9,7 +9,7 @@ Note: For security reasons the ```docker node update``` command can only be run 
 Here are two alternate methods to automate setting labels for worker nodes containing their Windows version:
 
 ### Powershell script to add engine label
-Docker engine labels are created through entries in the Docker [daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file). ```nodelabel.ps1``` creates an engine label named ```engine.labels.windowsversion``` with a value of the Windows version in use in the form of ```major.minor.build.revision```.
+Docker engine labels are created through entries in the Docker [daemon configuration file](https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file). ```enginelabel.ps1``` creates an engine label named ```engine.labels.windowsversion``` with a value of the Windows version in use in the form of ```major.minor.build.revision```.
 
 The script must be run on the Windows node, and so could be added as a step in the node provisioning process prior to joining the UCP cluster.
 
