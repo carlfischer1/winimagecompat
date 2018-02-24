@@ -1,36 +1,54 @@
-# enginelabel.ps1
-# adds an engine label into daemon.json for the Windows version in use
+# nodelabel.py
+# adds a label containing the specified Windows version on Windows nodes in the cluster
+# that do not already have one
+
+import requests
+import json
+
+ucp='https://52.158.239.214'
+winverlabel = 'com.docker.ucp.node.windowsversion'
+headers = {'content-type': 'application/json'}
+params = {}
+body = {}
+ 
+# TODO get from command line input
+winver = '10.0.14393.128'
+
+# certificates and keys from UCP client bundle
 #
-# covers the following cases
-#   1 - no daemon.json file
-#   2 - daemon.json file with other settings
-#   3 - daemon.json file with other label values
-#   4 - daemon.json file containing the label to be added (no change)
+# cert.bundle = cert.pem + key.pem
+# used with requests cert parameter to specify client certificate and it's key 
+cert = '/Users/carlfischer/Documents/nodelabel/cert.bundle2'
+#
+# ca = trusted CA
+# used with verify option to specify the CA as used by the server
+ca = '/Users/carlfischer/Documents/nodelabel/ca.pem'
 
-$configroot = $Env:PROGRAMDATA
-$configfile = $configroot + "\docker\config\daemon.json"
-$labelroot = "engine.labels.windowsversion"
-$winver = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" | % {"{0}.{1}.{2}.{3}" -f $_.CurrentMajorVersionNumber,$_.CurrentMinorVersionNumber,$_.CurrentBuildNumber,$_.UBR}
-$label = @($labelroot + "=" + $winver) 
+# get set of nodes from UCP
+resp = requests.get(ucp+'/nodes', verify=ca, cert=cert)
+if resp.status_code != 200:
+    resp.raise_for_status()
+    exit
+nodes = resp.json()
 
-# If configfile exists get it's content, otherwise create a new object
-if ($configfile | Test-Path) {
-   $data = Get-Content $configfile | ConvertFrom-Json
-} else {
-   $data = New-Object PsObject
-}
-
-# Check for existing labels and add if not already present
-if ($data.labels -ne $nul){ 
-   if ($data.labels -contains $label){
-       # label already exists, done
-       exit
-       } else {
-          $data.labels += $label
-       }
-  } else {
-    $data | add-member -type NoteProperty -Name "labels" -Value $label
-    }
-
-# Update configfile
-$data | ConvertTo-Json | Out-File $configfile -Encoding ASCII
+# check each node
+# add label where necessary
+for node in nodes:
+    print ('{} {}'.format("Processing node ID: ", node.get('ID')))
+    # windows nodes only
+    if node.get('Description',{}).get('Platform',{}).get('OS') != "windows":
+        print("    Node OS != Windows, skipping")
+    else:
+       if winverlabel in node.get('Spec',{}).get('Labels',{}):
+            print ("    Existing label found, skipping")
+       else:
+           # new label required
+            print ("    Setting new label")
+            node['Spec']['Labels'][winverlabel] = winver
+            params['version'] = node.get('Version').get('Index')
+            body = json.dumps(node.get('Spec'))
+            # update node in UCP 
+            resp = requests.post(ucp+'/nodes/'+node.get('ID')+'/update', params=params, data=body, headers=headers, verify=ca, cert=cert)
+            if resp.status_code != 200:
+                resp.raise_for_status()
+                exit
