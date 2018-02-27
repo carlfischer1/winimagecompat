@@ -32,7 +32,7 @@ Microsoft also provides a general tag that always provides the latest version of
 Many 3rd party images derived from Windows Server base images, such as ```library\python```, specify the ```ltsc2016``` tag or no tag at all. In those cases, here are two methods to ensure a predictable version of the Windows base images is used:
 
 ### Fork the dockerfile
-With some images it may be possible to create a copy of the image's ```dockerfile``` and replace it's general tag reference to the Windows base image with an explicit one, pinning it to the specified version.
+For some images it may be possible to create a copy of the image's ```dockerfile``` and replace a general Windows base image reference with an explicit one, pinning it to the specified version.
 
 ### Capturing a specific version of the image
 [Stefan Scherer's](@stefscherer) WinSpector tool can be used to determine the Windows base image and patch level of any image:
