@@ -18,48 +18,6 @@ The Universal Control Plane (UCP) API allows setting node labels equivalent to t
 
 The script can be run anywhere a client bundle has been sourced, and is intended as a step in provisioning new nodes in a cluster. This approach assumes all services in the cluster have constraints pinning them to a specific ```com.foo.windowsversion``` label value, allowing new nodes to be added to the cluster without being incorrectly assigned tasks prior to having their ```com.foo.windowsversion``` label set.
 
+Reference: 
 https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeList
 https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeUpdate
-
-
-### Also investigated
-
-### Going forward, Kubernetes labels
-
-#### Using Linux Powershell to remotely gather Windows version 
-On Ubuntu 16.10 UCP master:
-
-1 - Install Powershell for Linux
-```
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/16.04/prod.list | sudo tee /etc/apt/sources.list.d/microsoft.list
-sudo apt-get update
-sudo apt-get install -y powershell
-```
-
-2 - Install Powershell Linux -> Windows remoting support
-```
-apt-get install omi
-apt-get install omi-psrp-server
-```
-
-```
-pwsh
-```
-
-References
-* https://blogs.msdn.microsoft.com/powershell/2017/02/01/installing-latest-powershell-core-6-0-release-on-linux-just-got-easier/
-* https://github.com/Microsoft/omi
-* https://github.com/PowerShell/psl-omi-provider
-
-# Reference
-## git
-```
-git clone https://github.com/carlfischer1/winimagecompat.git
-```
-```
-git config --global user.name "Your Name"
-```
-```
-git config --global user.email you@example.com
-```
