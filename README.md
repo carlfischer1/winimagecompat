@@ -18,6 +18,6 @@ The Universal Control Plane (UCP) API allows setting node labels equivalent to t
 
 The script can be run anywhere a client bundle has been sourced, and is intended as a step in provisioning new nodes in a cluster. This approach assumes all services in the cluster have constraints pinning them to a specific ```com.foo.windowsversion``` label value, allowing new nodes to be added to the cluster without being incorrectly assigned tasks prior to having their ```com.foo.windowsversion``` label set.
 
-Reference: 
+#### UCP API reference
 https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeList
 https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeUpdate
