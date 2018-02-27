@@ -27,17 +27,18 @@ Microsoft provides tags for each patch release of Windows Server base images, so
 
 ```FROM microsoft/windowsservercore:10.0.14393.2068```
 
-Microsoft also provides a general tag that always provides the latest version of the image. For Windows Server 2016 this is the ```ltsc2016``` tag. When specifying that tag, or no tag, the exact version of the base image returned will change over time as new patch level images become available.
+Microsoft also provides a general tag that always provides the latest version of the image. For Windows Server 2016 this is the ```ltsc2016``` tag. When specifying that tag, or no tag, the exact version of the base image returned is not predictable as new patch level images become available over time.
 
-However, many 3rd party images derived from Windows Server base images, such as ```library\python```, specify the ```ltsc2016``` tag or no tag at all. In those cases, here are two methods to ensure a predictable version of the Windows base images is used:
+Many 3rd party images derived from Windows Server base images, such as ```library\python```, specify the ```ltsc2016``` tag or no tag at all. In those cases, here are two methods to ensure a predictable version of the Windows base images is used:
 
 ### Fork the ```dockerfile```
 With some images it may be possible to create a copy of the image's ```dockerfile``` and replace it's general tag reference to the Windows base image with an explicit one, pinning it to the specified version.
 
 ### Capturing a specific version of the image
-Stefan Scherer's WinSpector tool can be used to determine the Windows base image and patch level of any image:
+[Stefan Scherer's](@stefscherer) WinSpector tool can be used to determine the Windows base image and patch level of any image:
 
-```$ docker run --rm stefanscherer/winspector library/python:3.6.4-windowsservercore-ltsc2016
+```
+$ docker run --rm stefanscherer/winspector library/python:3.6.4-windowsservercore-ltsc2016
 Retrieving information about source image library/python:3.6.4-windowsservercore-ltsc2016
 Retrieving information about source image library/python:sha256:443d89ead05636e9050abc717896c391059737671d38643283178c4efe597e05
 Image name: library/python
@@ -69,4 +70,7 @@ History:
    ENV PYTHON_RELEASE=3.6.4
 <snip>
 ```
-Once the version of the base image is known it can used to create an explicit tag for the 3rd party image that includes the version of the base images it references. That tag can in turn be referenced in the ```dockerfile``` of images deriving from the 3rd party image.
+
+In this example the patch-level version of ```microsoft/windowsservercore``` in use is ```10.0.14393.2068```. 
+
+Once the version of the base image is known it can used to create an explicit tag for the 3rd party image that includes the version of the base images it references, such as ```3.6.4-windowsservercore-10.0.14393.2068```. That tag can in turn be referenced in apps or services deriving from the 3rd party image.
