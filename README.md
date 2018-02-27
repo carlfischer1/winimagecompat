@@ -71,9 +71,9 @@ History:
 <snip>
 ```
 
-In this example the patch-level version of ```microsoft/windowsservercore``` in the image is ```10.0.14393.2068```.
+In this example the patch-level version of ```microsoft/windowsservercore``` used in the image is ```10.0.14393.2068```.
 
-The version of the base image can used to create an explicit tag for the 3rd party image including the version of the base images it's based on, such as ```3.6.4-windowsservercore-10.0.14393.2068```. That tag can in turn be referenced in apps or services deriving from the 3rd party image.
+The patch-level version of the base image can used to create an explicit tag for the 3rd party image, such as ```3.6.4-windowsservercore-10.0.14393.2068```, and stored in a private registry. That tag can then be used in apps or services that derive from the 3rd party image to predictably reference base image version.
 
 ## dockerfile arguments
 
