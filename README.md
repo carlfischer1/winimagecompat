@@ -1,5 +1,5 @@
 # Windows image compatibility
-Testing, samples, and scripts for Windows image compatibility runbook
+Samples and scripts for the Windows image compatibility runbook
 
 ## Reducing the overhead of maintaining custom labels on each node
 The Windows Server run book is predicated on the use of labels that contain the Windows version running on each node, and service constraints that reference those labels to bind a service using images built on a given Windows version to hosts running the same Windows version.
