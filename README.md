@@ -14,9 +14,9 @@ Docker engine labels are created with entries in the Docker [daemon configuratio
 The script must be run on the Windows node and is intended for use as a step the node provisioning process.
 
 ### UCP API to set node labels
-The Universal Control Plane (UCP) API allows setting node labels equivalent to the ```docker node label``` CLI command. ```nodelabel.py``` is a Python script that takes a Windows version as a parameter and creates a ```com.foo.windowsversion``` node label with the specified value on all nodes in the cluster where it does not exist.
+The Universal Control Plane (UCP) API allows setting node labels equivalent to the ```docker node label``` CLI command. ```nodelabel.py``` is a Python script that takes a Windows version as a parameter and creates a ```com.docker.ucp.node.windowsversion``` node label with the specified value on all Windows nodes in the cluster where it does not exist.
 
-The script can be run anywhere a client bundle has been sourced, and is intended as a step in provisioning new nodes in a cluster. This approach assumes all services in the cluster have constraints pinning them to a specific ```com.foo.windowsversion``` label value, allowing new nodes to be added to the cluster without being incorrectly assigned tasks prior to having their ```com.foo.windowsversion``` label set.
+The script can be run anywhere a client bundle has been sourced, and is intended as a step in provisioning new nodes in a cluster. This approach assumes all services in the cluster have constraints pinning them to a specific ```com.docker.ucp.node.windowsversion``` value, allowing new nodes to be added to the cluster without being incorrectly assigned tasks prior to having their ```com.docker.ucp.node.windowsversion``` label set.
 
 #### UCP API reference
 https://docs.docker.com/datacenter/ucp/2.2/reference/api/#!/Node/NodeList
