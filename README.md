@@ -31,7 +31,7 @@ Microsoft also provides a general tag that always provides the latest version of
 
 Many 3rd party images derived from Windows Server base images, such as ```library\python```, specify the ```ltsc2016``` tag or no tag at all. In those cases, here are two methods to ensure a predictable version of the Windows base images is used:
 
-### Fork the ```dockerfile```
+### Fork the dockerfile
 With some images it may be possible to create a copy of the image's ```dockerfile``` and replace it's general tag reference to the Windows base image with an explicit one, pinning it to the specified version.
 
 ### Capturing a specific version of the image
@@ -71,6 +71,6 @@ History:
 <snip>
 ```
 
-In this example the patch-level version of ```microsoft/windowsservercore``` in use is ```10.0.14393.2068```. 
+In this example the patch-level version of ```microsoft/windowsservercore``` in the image is ```10.0.14393.2068```.
 
-Once the version of the base image is known it can used to create an explicit tag for the 3rd party image that includes the version of the base images it references, such as ```3.6.4-windowsservercore-10.0.14393.2068```. That tag can in turn be referenced in apps or services deriving from the 3rd party image.
+The version of the base image can used to create an explicit tag for the 3rd party image including the version of the base images it's based on, such as ```3.6.4-windowsservercore-10.0.14393.2068```. That tag can in turn be referenced in apps or services deriving from the 3rd party image.
