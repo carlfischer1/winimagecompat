@@ -11,14 +11,13 @@
 #
 # requires
 #   A client bundle downloaded from UCP, with contents unzipped in the working directory
-#   A 'cert.bundle' file created by concatenating cert.pem + key.pem
+#   A 'cert.bundle' file created by concatenating cert.pem and key.pem
 
 import requests
 import json
 import os
 import sys
 
-#ucp = 'https://52.158.239.214'
 clientbundlepath = os.getcwd()
 winverlabel = 'com.docker.ucp.node.windowsversion'
 headers = {'content-type': 'application/json'}
